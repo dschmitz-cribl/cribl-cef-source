@@ -1,0 +1,83 @@
+output: default
+streamtags: []
+groups:
+  9wfOpv:
+    name: Create Common Schema
+    description: Enable this section to create Common Schema from the CEF fields.
+    index: 5
+    disabled: false
+asyncFuncTimeout: 1000
+functions:
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: This pipeline extracts CEF fields to an internal __cef field to be used
+        by destinations.  Optionally, it will also map the CEF fields into a
+        Common Schema in the intenal field __schema.
+  - id: serde
+    filter: "true"
+    disabled: null
+    conf:
+      mode: extract
+      type: kvp
+      srcField: _raw
+      cleanFields: false
+      allowedKeyChars: []
+      allowedValueChars: []
+      dstField: cef
+      fieldFilterExpr: value !== null && value != ''
+    description: Extract CEF fields
+  - id: regex_extract
+    filter: "true"
+    disabled: null
+    conf:
+      source: _raw
+      iterations: 100
+      overwrite: false
+      regex: /CEF:(?<cef_version>\d+)\|(?<cef_device_vendor>[^\|]+)\|(?<cef_device_product>[^\|]+)\|(?<cef_device_version>[^\|]+)\|(?<cef_device_event_class_id>[^\|]+)\|(?<cef_name>[^\|]+)\|(?<cef_severity>[^\|]+)\|/
+    description: Extract CEF headers
+  - id: rename
+    filter: "true"
+    disabled: null
+    conf:
+      wildcardDepth: 5
+      rename:
+        - currentName: cef_device_event_class_id
+          newName: cef.deviceEventClassId
+        - currentName: cef_device_product
+          newName: cef.deviceProduct
+        - currentName: cef_device_vendor
+          newName: cef.deviceVendor
+        - currentName: cef_device_version
+          newName: cef.deviceVersion
+        - currentName: cef_name
+          newName: cef.name
+        - currentName: cef_severity
+          newName: cef.severity
+        - currentName: cef_version
+          newName: cef.version
+    description: Rename fields into the existing CEF object
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: This section creates the Common Schema.  Disable if the Common Schema
+        isn't needed.
+  - id: chain
+    filter: "true"
+    disabled: false
+    conf:
+      processor: cef_to_common_schema
+    groupId: 9wfOpv
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        - disabled: false
+          name: __cef
+          value: cef
+      remove:
+        - cef
+    description: Move cef fields to internal hidden field __cef

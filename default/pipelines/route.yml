@@ -1,0 +1,26 @@
+id: default
+groups: {}
+comments: []
+routes:
+  - id: default
+    name: CEF Source
+    final: true
+    disabled: false
+    pipeline: cef_source
+    description: Route Cef data to the cef_source pipeline
+    clones: []
+    enableOutputExpression: false
+    outputExpression: null
+    filter: _raw.indexOf("CEF:") > -1
+    output: default
+  - id: 7kp3pz
+    name: Default
+    final: true
+    disabled: false
+    pipeline: devnull
+    description: Drop the event if this pack cannot process it.
+    clones: []
+    enableOutputExpression: false
+    outputExpression: null
+    filter: "true"
+    output: default

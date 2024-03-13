@@ -1,0 +1,402 @@
+output: default
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+functions:
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: This pipeline maps CEF fields into a Common Schema.  The eval function
+        contains mappings for additional extensions that are disabled by
+        default.  To map additional fields, enable those within the Eval
+        function.
+  - id: eval
+    filter: "true"
+    disabled: null
+    conf:
+      add:
+        - disabled: false
+          name: __tmp
+          value: "{}"
+        - disabled: false
+          name: __tmp.observer__vendor
+          value: cef.deviceVendor
+        - disabled: false
+          name: __tmp.observer__product
+          value: cef.deviceProduct
+        - disabled: false
+          name: __tmp.observer__version
+          value: cef.deviceVersion
+        - disabled: false
+          name: __tmp.event__code
+          value: cef.deviceEventClassId
+        - disabled: false
+          name: __tmp.event__severity
+          value: cef.severity
+        - disabled: true
+          name: __tmp.agent__ip
+          value: cef.agentAddress || cef.agt
+        - disabled: true
+          name: __tmp.agent__name
+          value: cef.agentHostName || cef.ahost
+        - disabled: true
+          name: __tmp.agent__id
+          value: cef.agentId || cef.aid
+        - disabled: true
+          name: __tmp.agent__mac
+          value: cef.agentMacAddress || cef.amac
+        - disabled: true
+          name: __tmp.event__created
+          value: cef.agentReceiptTime || cef.art
+        - disabled: true
+          name: __tmp.agent__type
+          value: cef.agentType || cef.at
+        - disabled: true
+          name: __tmp.agent__version
+          value: cef.agentVersion || cef.av
+        - disabled: true
+          name: __tmp.network__protocol
+          value: cef.applicationProtocol || cef.app
+        - disabled: false
+          name: __tmp.source__bytes
+          value: cef.bytesIn || cef.in
+        - disabled: false
+          name: __tmp.destination__bytes
+          value: cef.bytesOut || cef.out
+        - disabled: false
+          name: __tmp.organization__id
+          value: cef.customerExternalID
+        - disabled: false
+          name: __tmp.organization__name
+          value: cef.customerURI
+        - disabled: false
+          name: __tmp.destination__ip
+          value: cef.destinationAddress || cef.dst
+        - disabled: false
+          name: __tmp.destination__registered_domain
+          value: cef.desinationDnsDomain
+        - disabled: true
+          name: __tmp.destination__geo__location__lat
+          value: cef.destinationGeoLatitude || cef.dlat
+        - disabled: true
+          name: __tmp.destination__geo__location__lon
+          value: cef.destinationGeoLongitude || cef.dlong
+        - disabled: false
+          name: __tmp.destination__domain
+          value: cef.destinationHostName || cef.dhost
+        - disabled: false
+          name: __tmp.destination__mac
+          value: cef.destinationMacAddress || cef.dmac
+        - disabled: false
+          name: __tmp.destination__registered_domain
+          value: cef.destinationNtDomain || cef.dntdom
+        - disabled: false
+          name: __tmp.destination__port
+          value: cef.destinationPort || cef.dpt
+        - disabled: false
+          name: __tmp.destination__process__pid
+          value: cef.destinationProcessId || cef.dpid
+        - disabled: false
+          name: __tmp.destination__process__name
+          value: cef.destinationProcessName || cef.dproc
+        - disabled: false
+          name: __tmp.destination__service__name
+          value: cef.destinationServiceName
+        - disabled: false
+          name: __tmp.destination__nat__ip
+          value: cef.destinationTranslatedAddress
+        - disabled: false
+          name: __tmp.destination__nat__port
+          value: cef.destinationTranslatedPort
+        - disabled: false
+          name: __tmp.destination__user__id
+          value: cef.destinationUserId || cef.duid
+        - disabled: false
+          name: __tmp.destination__user__name
+          value: cef.destinationUserName || cef.duser
+        - disabled: false
+          name: __tmp.destination__user__group__name
+          value: cef.destinationUserPrivileges || cef.dpriv
+        - disabled: false
+          name: __tmp.event__action
+          value: cef.deviceAction || cef.act
+        - disabled: false
+          name: __tmp.observer__ip
+          value: cef.deviceAddress || cef.dvc
+        - disabled: false
+          name: __tmp.network__direction
+          value: cef.deviceDirection
+        - disabled: false
+          name: __tmp.observer__registered_domain
+          value: cef.deviceDnsDomain
+        - disabled: false
+          name: __tmp.observer__name
+          value: cef.deviceExternalId
+        - disabled: false
+          name: __tmp.log__syslog__facility__code
+          value: cef.deviceFacility
+        - disabled: false
+          name: __tmp.observer__hostname
+          value: cef.deviceHostName || cef.dvchost
+        - disabled: false
+          name: __tmp.observer__ingress__interface__name
+          value: cef.deviceInboundInterface
+        - disabled: false
+          name: __tmp.observer__mac
+          value: cef.deviceMacAddress || cef.dvcmac
+        - disabled: false
+          name: __tmp.observer__egress__interface__name
+          value: cef.deviceOutboundInterface
+        - disabled: true
+          name: __tmp.process__pid
+          value: cef.deviceProcessId || cef.dvcpid
+        - disabled: true
+          name: __tmp.process__name
+          value: cef.deviceProcessName
+        - disabled: false
+          name: __tmp.timestamp
+          value: cef.deviceReceiptTime || cef.rt || _time
+        - disabled: false
+          name: __tmp.event__timezone
+          value: cef.deviceTimeZone || cef.dtz
+        - disabled: false
+          name: __tmp.host__nat__ip
+          value: cef.deviceTranslatedAddress
+        - disabled: false
+          name: __tmp.observer__version
+          value: cef.deviceVersion
+        - disabled: false
+          name: __tmp.event__end
+          value: cef.endTime || cef.end
+        - disabled: false
+          name: __tmp.event__id
+          value: cef.eventId
+        - disabled: false
+          name: __tmp.event__outcome
+          value: cef.eventOutcome || cef.outcome
+        - disabled: true
+          name: __tmp.file__created
+          value: cef.fileCreateTime
+        - disabled: true
+          name: __tmp.file__hash
+          value: cef.fileHash
+        - disabled: true
+          name: __tmp.file__inode
+          value: cef.fileId
+        - disabled: true
+          value: cef.fileModificationTime
+          name: __tmp.file__mtime
+        - disabled: true
+          name: __tmp.file__name
+          value: cef.fileName || cef.fname
+        - disabled: true
+          name: __tmp.file__path
+          value: cef.filePath
+        - disabled: true
+          name: __tmp.file__group
+          value: cef.filePermission
+        - disabled: true
+          name: __tmp.file__size
+          value: cef.fileSize || cef.fsize
+        - disabled: true
+          name: __tmp.file__extension
+          value: cef.fileType
+        - disabled: true
+          name: __tmp.event__ingested
+          value: cef.managerReceiptTime || cef.mrt
+        - disabled: true
+          name: __tmp.message
+          value: cef.message || cef.msg
+        - disabled: true
+          name: __tmp.event__original
+          value: cef.rawEvent || _raw
+        - disabled: false
+          name: __tmp.event__reason
+          value: cef.Reason || cef.reason
+        - disabled: true
+          name: __tmp.user_agent__original
+          value: cef.requestClientApplication
+        - disabled: true
+          name: __tmp.http__request__referrer
+          value: cef.requestContext
+        - disabled: true
+          name: __tmp.http__request__method
+          value: cef.requestMethod
+        - disabled: true
+          name: __tmp.url__original
+          value: cef.requestUrl
+        - disabled: false
+          name: __tmp.source__ip
+          value: cef.sourceAddress || cef.src
+        - disabled: false
+          name: __tmp.source__registered_domain
+          value: cef.sourceDnsDomain
+        - disabled: true
+          name: __tmp.source__geo__location__lat
+          value: cef.sourceGeoLatitude || cef.slat
+        - disabled: true
+          name: __tmp.source__geo__location__lon
+          value: cef.sourceGeoLongitude || cef.slong
+        - disabled: false
+          name: __tmp.source__domain
+          value: cef.sourceHostName || cef.shost
+        - disabled: false
+          name: __tmp.source__mac
+          value: cef.sourceMacAddress || cef.smac
+        - disabled: false
+          name: __tmp.source__registered_domain
+          value: cef.sourceNtDomain || cef.sntdom
+        - disabled: false
+          name: __tmp.source__port
+          value: cef.sourcePort || cef.spt
+        - disabled: false
+          name: __tmp.source__process__pid
+          value: cef.sourceProcessId || cef.spid
+        - disabled: false
+          name: __tmp.source__process__name
+          value: cef.sourceProcessName || cef.sproc
+        - disabled: false
+          name: __tmp.source__service__name
+          value: cef.sourceServiceName
+        - disabled: false
+          name: __tmp.source__nat__ip
+          value: cef.sourceTranslatedAddress
+        - disabled: false
+          name: __tmp.source__nat__port
+          value: cef.sourceTranslatedPort
+        - disabled: false
+          name: __tmp.source__user__id
+          value: cef.sourceUserId || cef.suid
+        - disabled: false
+          name: __tmp.source__user__name
+          value: cef.sourceUserName || cef.suser
+        - disabled: false
+          name: __tmp.source__user__group__name
+          value: cef.sourceUserPrivileges || cef.spriv
+        - disabled: false
+          name: __tmp.event__start
+          value: cef.startTime || cef.start
+        - disabled: false
+          name: __tmp.network__transport
+          value: cef.transportProtocol || cef.proto
+        - disabled: false
+          name: __tmp.cribl__config_ver
+          value: C.confVersion
+        - disabled: false
+          name: __tmp.cribl__worker__type
+          value: __env.CRIBL_WORKER_DIST_MODE
+        - disabled: false
+          name: __tmp.cribl__worker.id
+          value: __env.CRIBL_WORKER_ID
+        - disabled: false
+          name: __tmp.cribl__worker__group
+          value: __env.CRIBL_GROUP_ID
+        - disabled: false
+          name: __tmp.cribl__input_id
+          value: __inputId
+        - disabled: false
+          name: __tmp.cribl__output_id
+          value: __outputId
+        - disabled: false
+          name: __tmp.cribl__pipelines
+          value: cribl_pipe
+      remove: []
+    description: Map CEF fields to a Common Schema
+  - id: code
+    filter: "true"
+    disabled: false
+    conf:
+      maxNumOfIterations: 5000
+      activeLogSampleRate: 1
+      useUniqueLogChannel: false
+      code: >-
+        /**
+         * Converts a flat JavaScript object into a nested one based on the presence of double underscores (`__`) in the keys.
+         *
+         * @param {Object} jsonObj - The flat JavaScript object to be converted to a nested structure.
+         * @returns {Object} - The nested JavaScript object.
+         */
+        function convertToNestedJSON(jsonObj) {
+          try {
+            // Initialize an empty object for the nested structure
+            const nestedObj = {};
+
+            // Iterate through each key in the flat object
+            for (let key in jsonObj) {
+              // Split the key into an array using double underscores as delimiters
+              const nestedKeys = key.split('__');
+              
+              // Initialize a reference to the current object in the nested structure
+              let currentObj = nestedObj;
+
+              // Iterate through the nested keys, creating nested objects as needed
+              for (let i = 0; i < nestedKeys.length - 1; i++) {
+                const nestedKey = nestedKeys[i];
+
+                // Create a nested object if the key doesn't exist in the current object
+                if (!(nestedKey in currentObj)) {
+                  currentObj[nestedKey] = {};
+                }
+
+                // Move the reference to the newly created nested object
+                currentObj = currentObj[nestedKey];
+              }
+
+              // Assign the value of the original flat object to the final nested key
+              currentObj[nestedKeys[nestedKeys.length - 1]] = jsonObj[key];
+            }
+
+            // Return the resulting nested object
+            return nestedObj;
+          } catch (error) {
+            // Log the error using __e.cribl_code_error field
+            __e.cribl_code_error = `An error occurred during the conversion: ${error.message}`;
+            
+            // You can handle the error as needed, e.g., throw it again or return a default value
+            return {};
+          }
+        }
+
+
+        // Add ECS Schema
+
+        __e.__tmp.ecs__version = "8.10.0";
+
+
+        // Example usage: Convert the 'TMP' property of '__e' to a nested structure
+
+        __e.__schema = convertToNestedJSON(__e.__tmp);
+
+
+        // Add logic for outcome
+
+        __e.__schema.event.outcome = (__e.__schema.event.action == 'allow') ? 'success' : 'failure';
+
+
+        // Move timestamp and remove old (__schema.@timestamp)
+
+        __e.__schema['@timestamp'] = new Date(Date.parse(__e.__schema.timestamp)).toISOString();
+
+        delete __e.__schema.timestamp;
+
+
+        //Add Category (array)
+
+        __e.__schema.event.category = ["network"]
+
+
+        // Add original event to __schema.event.original
+
+        //__e.__schema.event.original = __e._raw;
+
+
+        // Remove the __tmp
+
+        delete __e.__tmp;
+
+
+        // Add type (array)
+
+        __e.__schema.event.type = ["connection", __e.__schema.event.action];
+    description: Code function to map extracted fields into CS schema

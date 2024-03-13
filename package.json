@@ -1,0 +1,1 @@
+{"name":"cribl-cef-source","version":"1.0.0","minLogStreamVersion":"4.3.0","author":"Dan Schmitz - Cribl","description":"This source pack for CEF events maps CEF fields to schemas to be used in conjunction with destination packs support common and cef schemas.","displayName":"CEF Source","tags":{"streamtags":["cef"],"dataType":["logs"],"useCase":["routing"],"technology":[]}}
